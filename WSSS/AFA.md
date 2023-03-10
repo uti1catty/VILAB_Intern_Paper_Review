@@ -55,3 +55,6 @@ Yaff에서 negative인 pixel(서로 다른 semantic)들은 A에서 양수가 되
 sigmoid를 통해 0~1로 변환한 후 negative는 1 - sig(A), positive는 sig(A)를 Loss에 더함  
 -> 반대여야 하지 않나?  
 
+### 3.3.3 Propagation with Affinity 
+Random Walk 도입  
+Transition matrix T를 A로부터 계산한 후 CAM M을 propagation  
