@@ -58,3 +58,18 @@ sigmoid를 통해 0~1로 변환한 후 negative는 1 - sig(A), positive는 sig(A
 ### 3.3.3 Propagation with Affinity 
 Random Walk 도입  
 Transition matrix T를 A로부터 계산한 후 CAM M을 propagation  
+
+## 3.4 Pixel-Adative Refinement (PAR)
+일반적으로 CRF를 많이 사용하지만 CRF is not a favorable choice in end to end framework since it remarkably slows down the training efficiency  
+pixel (i, j) , (k, l) 사이의 RGB 차이, Position 차이 값을 계산 (Position은 XY coordinate)  
+k_rgb^ijkl, k_pos^ijkl  
+두 pixel의 차이가 작을수록 k값은 커짐  
+두가지 종류의 information을 하나로 병합하기 위해 각각 softmax를 수행하고 weighted sum  
+이때 (i,j)에 대해서 (k, l)을 계산하는데 (i, j)의 neighbor set을 바탕으로 softmax를 계산한다.  
+k^ijkl 는 (i, j) 주변의 모든 pixel들 중에서 (k, l)이 얼마나 (i, j)와 유사한지를 나타냄  
+
+initial CAM과 propagated CAM을 모두 PAR로 iterative 하게 refine  M (h x w x C)  
+(i, j)의 모든 근처 pixel (k, l)에 대해서 M^klc를 k_ijkl로 weighted sum하여 M^ijc 계산 (refine)  
+
+즉 각 (i, j)의 CAM은 (i, j) 주변의 pixel들의 CAM을 (i, j)와 (k, l)의 유사도를 기준으로 weighted sum을 수행하는 것  
+
