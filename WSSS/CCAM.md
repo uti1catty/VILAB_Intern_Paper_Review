@@ -56,3 +56,23 @@ cosine similarity기반으로 둘이 가까우면 1, 90도로 멀면 0이 되어
 모든 (i, j) pair에 대해 loss를 더한것이 L_neg (같은 image내의 f,g 포함)    
 ## 3.3 Foreground-Foreground, Background-Background Contrst with Rank Weighting  
 서로 다른 image의 F-F, B-B pair가 positive pair  
+그런데 같은 F더라도 color, texture의 유사도가 작은 경우 distance가 커서 문제가 될 수 있다. 따라서 rank weighting을 수행  
+우선 feature 쌍 (v_i^f, v_j^f) cosine similarity를 구하여 rank를 기준으로 weight을 계산  
+w_ij^f = exp(-alpha x rank(s_ij^f))  
+rank는 모든 쌍 (i, j)에 대한 similarity set 내에서 순위를 말함
+-> 아마 sim value가 클 수록 (유사할수록) rank가 작은 것으로 보임  
+따라서 유사할수록 weight이 커짐. (0~1)  
+weighted positive loss를 F, B에 대해 각각 계산하고 더하여 L_POS 계산  
+서로 다른 i,j에 대하여(i, i 배제) L_ij^f = -w_ij^f X log(s_ij^f) 로 sim이 클수록 weight이 크고 loss가 작아짐  
+=> 그러면 similarity가 작더라도 weight이 작아서 loss를 0근처로 끌어 내릴텐데 distance를 가깝게 두도록 유도가 가능한가?  
+==> sim이 큰 쌍만 고려하겠다는 의미인듯. sim이 작은 녀석들은 버리고 sim이 큰 녀석들의 dist만 가까이 두겠다는 것.   
+===> 그런데 지금 서로 비슷한 feature를 가진 것들의 dist를 줄여야 하는데 서로 비슷한 feature를 가졌지만 v값의 차이가 클 경우 이를 가까이 둘수있게 v값을 뽑을 수 있도록 loss를 정하고 싶은 것인데 weight이 sim값을 기준으로 결정되어 비슷한 feature를 가졌지만 v값의 차이가 클경우 loss에 포함이 작게 된다. 의미가 있는가?  
+
+## 3.5 WSSS 
+backgroudnd activation map 1-P를 background cue로 사용  
+CAM의 앞에 background cue를 삽입하고 channel방향 Argmax를 통해 CAM을 refine  
+
+# 4 Experiment
+Dataset: CUB-200-2011 / PASCAL VOC2012  
+Evaluation: WSOL-Top1 Loc, Top5 Loc, GT-known Loc / WSSS: mIoU  
+
