@@ -1,4 +1,5 @@
 # [CVPR22] C2AM: Constrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation
+github: https://github.com/CVI-SZU/CCAM  
 
 Contrastive learning for Class-agnostic Activation Map (C2AM) generation only using 'unlabeled image data', without the invovement of image-level supervision. 
 
@@ -76,3 +77,6 @@ CAM의 앞에 background cue를 삽입하고 channel방향 Argmax를 통해 CAM�
 Dataset: CUB-200-2011 / PASCAL VOC2012  
 Evaluation: WSOL-Top1 Loc, Top5 Loc, GT-known Loc / WSSS: mIoU  
 
+# 5 Results and Analysis 
+CCAM이 chair에서는 오히려 mIoU를 떨어뜨리는 모습이 보임 
+-> Why?  
