@@ -34,7 +34,7 @@ F^hat: output of last conv layer of global network. C+1 channel
 
 ### 3.3.1 classification loss
 classification loss는 local network에 장착  
-feature maps {F1, F2, ... FN}을 global pooling layer를 통과시켜 1D feature vector {f1, f2, ... fN} 생성.  
+feature maps {F1, F2, ... FN}을 global pooling layer를 통과시켜 1D feature vectors {f1, f2, ... fN} 생성.  
 이후 sigmoid를 통과시켜 prediction qi 생성.  
 L_cls는 각 f의 각 channel(class) 별 loss를 더한 값.  
 GT는 1개의 image에서 나왔기 때문에 1개로 고정. (multi label은 가능)  

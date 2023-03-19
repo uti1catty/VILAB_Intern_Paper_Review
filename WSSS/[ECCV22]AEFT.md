@@ -2,7 +2,7 @@
 
 github: https://github.com/KAIST-vilab/AEFT
 
-## 1. Introduction
+# 1. Introduction
 GAP (Global Average Pooling)은 feaure에서 object irrelevant region까지 포함하여 averaging를 하므로 CAMs는 작은 영역을 무시하고 object boundary에 fit하지 않는다.  
 이를 해결하기 위해 GPP (Gated Pyramid Pooling)을 사용해 global context를 capture함과 동시에 fine-details를 localize하였다.  
 CAM이 various bin size에 따라 average pooled 되어 spatial pyramid를 형성  
@@ -20,12 +20,12 @@ anchor-negative: prevent over-expansion problem
 >Forcing the network to make the prediction from the erased image according to the binary classification lable is the main reason for over-expansion  
 이를 해결하기 위해 Triplet loss 사용  
 
-## 3. Proposed method
-### 3.2 CAMs Generation
+# 3. Proposed method
+## 3.2 CAMs Generation
 GAP를 통하면 위치와 관계없이 모두 동등한 기여로 계산  
 따라서 GAP가 image pixels and image level clss labels 사이의 잘못된 correlation을 학습시킨다.  
 Resulting CAMs tend to be activated on highly correlated background regions while ignoring the small objects.  
-### 3.3 Gated Pyramid Pooling (GPP) layer
+## 3.3 Gated Pyramid Pooling (GPP) layer
 low to the high scale, sequentially refine the pooled feature map with multiple gated conv layers while preserving its sign.  
 
 Defined 'sign-preserving attention operation g  
@@ -56,7 +56,7 @@ P16_hat과 f의 양수부분끼리 elementwise 곱과 P16_hat과 f의 음수부�
 
 GPP를 통해 GAP 대비 higher localization quality CAMs 획득  
 
-### 3.4 Adversarial Erasing Framework via Triplet(AEFT)
+## 3.4 Adversarial Erasing Framework via Triplet(AEFT)
 기존 AE: AE에서 most discriminative 영역을 삭제한 후 해당 image로 다시 model이 original image-level classification label에 따라 분류하도록 학습.  
 반복학습을 통해 model이 less discriminative region에 집중하게 되고 CAMs도 함께 확장   
 over exansion problem 존재  
@@ -66,13 +66,13 @@ AE의 직접적인 CAMs 학습은 generated CAMs의 quality측면에서 unstable
 
 original image Anchor, masked image Positive, class겹침 없는 다른 image Negative  
 
-#### 3.4.1 Masked Image 획득
+### 3.4.1 Masked Image 획득
 CAMs로부터 forground map Afg획득: 각 class마다의 activation map의 max value 모음  
 masked image Ip(i,j): Afg(i,j)가 t_H이상이면 0 (Hard masking)  
 미만이면 original image I_A(i,j) X Afg(i, j) (original image에서 acivation 정도를 주며 soft masking)  
 t_H: threshold - hard masking과 soft masking 구분 경계 (eq 7)  
 
-#### 3.4.2 Adversarial Ersing via Metric Learning
+### 3.4.2 Adversarial Ersing via Metric Learning
 Anchor, Positive, Negative를 GPP 수행한 후 P16_hat을 embedding (channel마다 평균값) 으로 변경하여 embedding상에서 비교   
 embedding은 feature map을 channel마다 평균낸 class 별 정보를 담고 있는 vector  
 Anchor의 feature와 Positive의 feature는 가깝게, Negative feature는 멀리 둠  
@@ -90,16 +90,16 @@ over-expansion이 되면 low confidence영역이 image의 objects에 대하여 �
 
 최종 loss: binary cross entropy loss (class prediction <-> image level lable) + lambda1*L_attract + lambda2*L_Repel  
 
-## 4 Experiments
-### 4.1 Dataset
+# 4 Experiments
+## 4.1 Dataset
 PASCAL VOC 2012: train(1456)으로 학습, val(1449)/test(1456)으로 evaluate  
 MS-COCO 2014: train(80k)로 학습, val(40k)로 평가. COCO-Stuff dataset에서 GT segmentation label을 얻음. MS-COCO 2014는 일부 object사이 overlap 존재. 
 
-### 4.2 Implementation detail
+## 4.2 Implementation detail
 ResNet38 backbone, ImageNet parameter로 initialize  
 data augmentation: horizontal flipping, color jittering, cropping  
 sementic segmentation network: Deeplab with ResNet38 backbone  
-### 4.3 Ablation study
+## 4.3 Ablation study
 GPP bin의 사이즈가 커질 수록 mIoU가 커짐  
 GPP bin 여러개를 모두 averaging으로 했을 때 mIoU가 커짐  
 GPP bin 여러개를 gated conv로 할 때 coarse->fine은 mIoU가 커짐/fine->coarse는 작아짐  

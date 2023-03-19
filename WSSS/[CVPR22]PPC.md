@@ -25,7 +25,7 @@ CAM 생성은 마지막 layer로 1x1 conv를 적용해 f' (C X HW) (C: class num
 
 ## 3.2 Pixel-to-Prototype Contrast  
 먼저 CAM에서 pseudo mask y=argmax(m)을 생성  
-각 category마다 representative embedding, the prototypes P = {p_c}_c=1~C가 존재  
+각 category마다 representative embedding, the prototypes P = {p_c}_{c=1~C}가 존재  
 goal: learn discriminative feature emebdding for each pixel aided by contrastive learning in a projected feature space.  
 
 먼저 pixel-wise projected feature vi (128 dim)을 projector로 생성. (projector는 1x1 conv, ReLU로 구성)  

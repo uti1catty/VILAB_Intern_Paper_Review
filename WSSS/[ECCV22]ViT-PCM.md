@@ -1,7 +1,8 @@
 # [ECCV22] Max Pooling with Vision Transformers reconciles class and shape in weakly supervised semantic segmentation
 github: https://github.com/deepplants/ViT-PCM
 
-PCM: Patch Class Mapping
+PCM: Patch Class Mapping  
+BPM: baseline pseudo mask  
 
 # 1. Introduction
 기존의 CAM을 기반으로 하는 방법들은 다양한 refinement를 수행하여 multi stage로 구성됨.  
