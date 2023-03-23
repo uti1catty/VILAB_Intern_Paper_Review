@@ -1,0 +1,1 @@
+PASCAL-CONTEXT: pixel level annotation for whole sene 제공 (e.g., water, railroad)
