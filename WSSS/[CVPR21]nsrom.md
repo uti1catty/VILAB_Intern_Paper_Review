@@ -72,7 +72,7 @@ work of OAA가 OA-CAMs를 통해 object cues를 추출하고, saliency map에서
 value of each OA-CAM을 비교하여 class label of each pixel assign.  
 saliency map이 shape information을 제공해주므로 initial label은 Background extraction(BE)이후에 clear object boundaries를 갖지만 outside the conspicuous area에서 many object parts를 miss한다.  
 
-recall: TP/(TP + FN), precision: TP/(TP + FP)
+recall: TP/(TP + FN), precision: TP/(TP + FP)  
 OA-CAMs: high recall, low precision  
 CAMs: low recall, high precision  
 

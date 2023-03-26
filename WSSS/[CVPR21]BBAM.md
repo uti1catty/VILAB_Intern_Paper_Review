@@ -3,7 +3,7 @@
 github: https://github.com/jbeomlee93/BBAM
 
 # 1. Introduction
-pixel level method of lcalizing a taret object inside its BB using a trained object detector.  
+pixel level method of localizing a taret object inside its BB using a trained object detector.  
 object detection을 수행할 때 detector가 focus하는 image region을 highlight하는 attribution map을 사용.  
 BBAM: Bounding Box Attribution Map: object detector가 거의 같은 결과물을 내도록 하는 최소한의 영역을 indication한다.  
 이 localization을 semantic/instance segmentation learning에 pseudo GT로 사용할 수 있다.  

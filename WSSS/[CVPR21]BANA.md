@@ -1,6 +1,6 @@
 # [CVPR21] Background-Aware Pooling and Noise-Aware Loss for Weakly-Supervised Semantic Segmentation  
 
-project: https://cvlab.yonsei.ac.kr/projects/BANA
+project: https://cvlab.yonsei.ac.kr/projects/BANA  
 github: https://github.com/cvlab-yonsei/BANA
 
 background regions are perceptually consistent in part within an image 라는 사실을 확인함.  
@@ -48,9 +48,9 @@ $$ q_j = {\sum_{p \in G(j)}M(p)f(p) \over \sum_{p \in G(j)}M(p)}$$
 
 queries를 이용하여 BB내의 bg region을 retrieve.  
 attention map $A$ (최종적으로 bg영역이라 판단하는 attention map)  
-$$A(p) = {1 \over J }\sum_j Aj(p),\ J: number\ of\ valid\ grid\ cells$$ 
+$$A(p) = {1 \over J }\sum_j A_j(p),\ J: number\ of\ valid\ grid\ cells$$ 
 $$ A_j(p) = ReLU({f(p) \over ||f(p)||} \cdot {q_j \over ||q_j||})\ (p \in B),\ or\ 1\ (p \notin B)$$
-즉 $A_j(p)$는 $p$가 bg 영역이면 1을 갖고 fg영역(BB내부)이면 bg feature $p_j$와 해당 position의 feature $f(p)$사이의 cosine similarity 값을 가진다. 이때 ReLU로 음수를 잘라내어 [0,1]값을 가짐.  
+즉 $A_j(p)$는 $p$가 bg 영역이면 1을 갖고 fg영역(BB내부)이면 bg feature $q_j$와 해당 position의 feature $f(p)$사이의 cosine similarity 값을 가진다. 이때 ReLU로 음수를 잘라내어 [0,1]값을 가짐.  
 $A(p)$는 이러한 $A_j(p)$들의 평균값. 따라서 $A(p)$가 bg 영역이라 판단하는 attention map이 된다.  
 ### 3.1.2 BAP
 $A$를 이용하여 각 BB내의 forground feature $r_i$계산  

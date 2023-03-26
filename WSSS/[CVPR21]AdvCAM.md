@@ -42,8 +42,8 @@ $$ \Alpha = {\Sigma_{t=0}^TCAM(x^t) \over max\Sigma_{t=0}^TCAM(x^t)}$$
 1. non-discriminative features가 enhance될수 있는가?
 2. enhaced feature가 사람의 관점에서 class-relevant한가?
 
-A1. discriminative region $R_D = \{i|CAM(x^0)_i \ge 0.5\}$와 Non discriminative region $R_ND = \{i|CAM(x^0)_i \lt 0.5\}$ 을 정의.  
-pixel amplification $s_t^i = CAM(x^t)_i / CAM(x^0)_t $ 를 정의할 때 step t에 따라 $R_D, R_ND$ 모두 증가한다. 이때 $R_ND$의 $s_t^i$가 더 크게 증가한다.  
+A1. discriminative region $R_D = \{i|CAM(x^0)_i \ge 0.5\}$와 Non discriminative region $R_{ND} = \{i|CAM(x^0)_i \lt 0.5\}$ 을 정의.  
+pixel amplification $s_t^i = CAM(x^t)_i / CAM(x^0)_t $ 를 정의할 때 step t에 따라 $R_D, R_{ND}$ 모두 증가한다. 이때 $R_ND$의 $s_t^i$가 더 크게 증가한다.  
 즉 non-discriminative region이 더 많ㅇ amplify된다.   
 
 A2. Input에 대하여 sharply curved loss landscape가 NN을 AA로부터 취약하게 만든다고 한다. 
@@ -66,7 +66,7 @@ $$M = 1(CAM(t^{t-1}) > \tau) (1(): indicator function)$$
 
 regularization을 apply한 식은 다음과 같다.
 $$ x^t = x^{t-1} + \zeta\nabla_{x^{t-1}}L$$
-$$L = y_c^{t-1} - \Sigma_{k\in C\backslash c}y_k^{t-1} - \lambda||M\odot |CAM(x^{t-1} - CAM(x^0))|||_1 (\odot: element-wise\_ mul)$$
+$$L = y_c^{t-1} - \Sigma_{k\in C\backslash c}y_k^{t-1} - \lambda||M\odot |CAM(x^{t-1}) - CAM(x^0)|||_1 (\odot: element-wise\_ mul)$$
 뒤의 Mask를 사용하는 term에서 $x^{t-1}$의 CAM에서 $x^{0}$의 CAM을 빼서 discriminative 역만 추출한 것. 이 값들이 커지면 Loss가 커지는 것. 즉 해당 값들이 $x^{0}$의 CAM값을 유지하도록 강요.   
 
 Regularization은 보통 Loss에 더해주게 되는데 지금 L값은 Loss가 아니라 predict value. Loss계산은 GT에서 predict를 빼주면서 계산하게 되니 부호를 반대로 하여 predict값에서 regularization term을 빼주어 같은 효과를 가져오도록 함.  
